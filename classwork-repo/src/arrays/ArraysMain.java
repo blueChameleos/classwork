@@ -7,6 +7,7 @@ public class ArraysMain {
 	private String[] suits;
 	private String[] values;
 	private String[] deck;
+	private int[] testArray;
 	
 	public ArraysMain() {
 		suits  = new String[4];
@@ -27,17 +28,67 @@ public class ArraysMain {
 		values[11] = "QUEEN";
 		values[10] = "JACK";
 		
-		deck = new String[52];
-		buildDeck();
+		//deck = buildDeck();
 		
-		System.out.println(Arrays.toString(deck));
+		testArray = new int[10];
+		populate1ToN(testArray);
+		cycleThrough(testArray, 5);
+		
+		int[] test = {1,2,3,4,5,6,7};
+		System.out.println(test);
+		
+		//frontToBack(testArray);
+		
+		
+		//System.out.println(Arrays.toString(deck));
+		//reverseArray(testArray);
+		//subArray(testArray, 2 , 2);
 	}
 	
-	private void buildDeck() {
-		
+	private void cycleThrough(int[] array, int n) {
+		for(int i = 0; i < n; i++) {
+			frontToBack(array);
+		}
 	}
 	
-	private void swap(int[] array, int i, int j) {
+	private void frontToBack(int[] array) {
+		int x  = array[0];
+		
+		for(int i = 0; i < array.length - 1; i++) {
+			array[i] = array[i+1];
+		}
+		
+		array[array.length - 1] = x;
+	}
+	
+	private String[] buildDeck() {
+		String[] deck = new String[52]; 
+		
+		System.out.println(deck);
+		
+		return deck;
+	}
+	
+	public void reverseArray(int[] array) {
+		int[] result = new int[array.length];
+		
+		for(int i = 0 - 1; i < array.length; i++) {
+			result[array.length - (i+1)] = array[i];
+		}
+		
+		array = result;
+	}
+	
+	public void subArray(int[] array, int startIdx, int distance) {
+		int[] subarray = new int[distance];
+		
+		for(int i = 0; i < distance; i++) {
+			subarray[i] = array[startIdx + i];
+			System.out.println(subarray[i]);
+		}
+	}
+	
+	public void swap(int[] array, int i, int j) {
 		int temp = array[i];
 		array[i] = array[j];
 		array[j] = temp;
@@ -70,6 +121,37 @@ public class ArraysMain {
 			array[i] = diceRoll(2);
 		}	
 	}
+	
+	private int longestConsecutiveSequence(int[] array) {
+		int record = 1;
+		
+		for(int i = 0;  i < array.length - 1; i++) {
+			int count = 0;
+			int start = i;
+			int end = i + 1;
+			
+			while(isConsecutive(array,start,end) && end < array.length) {
+				count++;
+				end++;
+			}
+			
+			if(count > record) {
+				record = count;
+			}
+		}
+		
+		return record;
+	}
+	
+	private boolean isConsecutive(int[] array, int start, int end) {
+		for(int i = start; i < end; i++) {
+			if(array[i + 1] != array[i] + 1) {
+				return false;
+			}
+		}
+		
+		return true;
+	}
 
 	public static void main(String[] args) {
 		ArraysMain sample = new ArraysMain();
@@ -82,7 +164,6 @@ public class ArraysMain {
 		//3. Elements of the array are REFERENCES to objects. In
 		//other words, changing an element of an array changes
 		//the reference, NOT the object
-		
 		
 	}
 	
