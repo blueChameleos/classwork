@@ -10,41 +10,23 @@ public class ArraysMain {
 	private int[] testArray;
 	
 	public ArraysMain() {
-		suits  = new String[4];
-		
-		suits[0] = "CLUBS";
-		suits[1] = "HEARTS";
-		suits[2] = "DIAMONDS";
-		suits[3] = "SPADES";
-		
-		values = new String[13];
-		
-		for(int i = 0; i < values.length; i++) {
-			values[i] = "" + (i+1);
-		}
-		
-		values[0] = "ACE";
-		values[12] = "KING";
-		values[11] = "QUEEN";
-		values[10] = "JACK";
-		
-		//deck = buildDeck();
-		
-		testArray = new int[10];
-		populate1ToN(testArray);
-		cycleThrough(testArray, 5);
-		
-		int[] test = {1,2,3,4,5,6,7};
-		System.out.println(test);
-		
-		//frontToBack(testArray);
-		
-		
-		//System.out.println(Arrays.toString(deck));
-		//reverseArray(testArray);
-		//subArray(testArray, 2 , 2);
+		wednesdayMethods();
 	}
 	
+	private void wednesdayMethods() {
+		int[] diceRolls = new int[10000];
+		populate(diceRolls);
+		
+		int[] data = longestConsecutiveSeqAndIndex(diceRolls);
+	}
+
+	private int[] longestConsecutiveSeqAndIndex(int[] diceRolls) {
+		int[] result = new int[2];
+		result[0] = longestConsecutiveSequence(diceRolls);
+		
+		return null;
+	}
+
 	private void cycleThrough(int[] array, int n) {
 		for(int i = 0; i < n; i++) {
 			frontToBack(array);
