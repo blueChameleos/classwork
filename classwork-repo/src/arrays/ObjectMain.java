@@ -3,14 +3,42 @@ package arrays;
 public class ObjectMain {
 
 	public ObjectMain() {
-		Object[] people = new Object[12];
+		Person[] people = new Person[120];
 		populate(people);
-		people[0] = new Thing("your mom");
-		for(Object p : people) {
-			System.out.println(p.toString());
+		//people[0] = new Thing("your mom");
+		Person[] group = selectGroup(people, 120);
+		for(Person p : group) {
+			p.mingle(people);
+			System.out.println(p);
+			p.stateYourFriends();
 		}
+		analyzeCommonalities(people, group);
+	}
+	
+	//returns the number of items that are the same in both arrays
+	//and in the same location
+	//assume that array1 and array2 
+	private int countCommonalities(Object[] array1, Object[] array2) {
+		int count = 0;
+		for(int i = 0; i < array1.length; i++) {
+			if(array1[i] == array2[i]){
+				count++;
+			}
+		}
+		return count;
 	}
 
+	private void analyzeCommonalities(Person[] people, Person[] group) {
+		double averageCommonality = 0;
+		double trials = 500;
+		for(int i = 0; i < trials; i++) {
+			group = selectGroup(people, people.length);
+			averageCommonality += countCommonalities(people, group);
+		}
+		averageCommonality = averageCommonality/trials;
+		System.out.println("After " + (int)(trials) + " trials, shuffling " + people.length + " people, on average, " + averageCommonality + " people end up in the same position where they started.");
+	}
+	
 	private void populate(Object[] people) {
 		// TODO Auto-generated method stub
 		for(int i = 0; i < people.length; i++) {
@@ -35,6 +63,32 @@ public class ObjectMain {
 	private String randomNameFrom(String[] a, String[] b, String[] c) {
 		// TODO Auto-generated method stub
 		return get(a) + get(b) + get(c);
+	}
+	
+	public Person[] selectGroup(Person[] population, int length) {
+		Person[] group = new Person[length];
+		for(int i = 0; i < length; i++) {
+			Person p = randomPerson(population);
+			while(alreadyContains(group, p)) {
+				p = randomPerson(population);
+			}
+			group[i] = p;
+		}
+		return group;
+	}
+	
+	public boolean alreadyContains(Person[] population, Person p) {
+		for(int i = 0; i < population.length; i++) {
+			if(population[i] == p) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	private Person randomPerson(Person[] population) {
+		int index = (int)(Math.random()*population.length);
+		return population[index];
 	}
 
 	private String get(String[] array) {
