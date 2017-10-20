@@ -11,6 +11,7 @@ public class Person {
 	
 	private String firstName;
 	private String lastName;
+	private String nickname;
 	private Borough home;
 	private Hobby hobby;
 	private Person[] friends;
@@ -19,8 +20,40 @@ public class Person {
 		this.firstName = f;
 		this.lastName = l;
 		this.home = h;
+		this.nickname = createNickname(this.firstName);
 		this.friends = new Person[3];
 		hobby = hobby.randomHobby();
+	}
+	
+	public static String createNickname(String name) {
+		String nickname = "";
+		int vowelCount = 0;
+		for(int i = 0; i < name.length(); i++) {
+			String letter = name.substring(i,i+1);
+			if(isVowel(letter)) {
+				vowelCount++;
+				if(vowelCount != 2) {
+					nickname += letter;
+				}
+				else {
+					return nickname;
+				}
+			}
+			else {
+				nickname += letter;
+			}
+		}
+		return name;
+	}
+	
+	private static boolean isVowel(String letter) {
+		String[] vowels = {"a","e","i","o","u"};
+		for(int i = 0; i < vowels.length; i++) {
+			if(letter.equals(vowels[i])) {
+				return true;
+			}
+		}
+		return false;
 	}
 	
 	public void setInFirstPlace(Person f) {
@@ -48,6 +81,14 @@ public class Person {
 	}
 	
 	public String toString() {
-		return this.firstName + " " + this.lastName + " lives in " + this.home;
+		return this.firstName + " " + this.lastName + " lives in " + this.home + ". My nickname is " + this.nickname;
+	}
+
+	public String getFirstName() {
+		return firstName;
+	}
+
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
 	}
 }
