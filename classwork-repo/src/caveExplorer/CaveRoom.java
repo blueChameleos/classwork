@@ -43,13 +43,11 @@ public class CaveRoom {
 	
 	public void setDirections() {	
 		directions = "";
-		
 		for(int i = 0; i < doors.length; i++) {
 			if(doors[i] != null) {
 				directions += "There is a "+ doors[i].getDescription() + " to the " + toDirection(i) + ". " + doors[i].getDetails() + "\n";
 			}
 		}
-		
 		if(directions.length() == 0) {
 			directions = "There is no way out. You are trapped in this room.";
 		}
@@ -68,7 +66,84 @@ public class CaveRoom {
 		String[] directions = {"the North", "the East", "the South", "the West"};
 		return directions[dir];
 	}
+	
+	public void enter() {
+		this.contents = "X";
+	}
+	
+	public void leave() {
+		this.contents = defaultContents;
+	}
+	
+	/**
+	 * 
+	 * This is how we join rooms together.
+	 * It gives this room access to anotherRoom and vice-versa
+	 * It also puts the door between both rooms
+	 * @param direction
+	 * @param anotherRoom
+	 * @param door
+	 */
+	
+	public void setConnection(int direction, CaveRoom anotherRoom, Door door) {
+		addRoom(direction, anotherRoom, door);
+		anotherRoom.addRoom(oppositeDirection(direction), this, door);
+	}
+	
+	/**
+	 * returns the OPPOSITE direction
+	 * @param direction
+	 * @return
+	 */
 
+	public static int oppositeDirection(int direction) {
+		return (direction + 2) % 4;
+	}
+
+	public void addRoom(int direction, CaveRoom caveRoom, Door door) {
+		borderingRooms[direction] = caveRoom;
+		doors[direction] = door;
+		setDirections();
+	}
+	
+	public void interpretInput(String input) {
+		while(!isValid(input)) {
+			System.out.println("You can only enter 'w','a',s,' or 'd'.");
+			input = CaveExplorer.in.nextLine();
+		}
+		int direction = "wdsa".indexOf(input);
+		goToRoom(direction);
+	}
+	
+	/**
+	 * returns true if w,a,s, or d is the input (NO IF STATEMENTS)
+	 * @param input
+	 * @return
+	 */
+	
+	private boolean isValid(String input) {
+		String inputChars = "wasd";
+		return inputChars.indexOf(input) >= 0 && input.length() == 1;
+	}
+	
+	/**
+	 * THIS IS WHERE YOU EDIT YOUR CAVES
+	 */
+	
+	public static void setUpCaves() {
+		
+	}
+
+	public void goToRoom(int direction) {
+		//make sure there is a room to go to
+		if(borderingRooms[direction] != null && doors[direction] != null && doors[direction].isOpen()) {
+			CaveExplorer.currentRoom.leave();
+			CaveExplorer.currentRoom = borderingRooms[direction];
+			CaveExplorer.currentRoom.enter();
+		}else {
+			System.err.println("You can't do that!");
+		}
+	}
 
 	public void setDefaultContents(String defaultContents) {
 		this.defaultContents = defaultContents;
