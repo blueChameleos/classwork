@@ -191,4 +191,9 @@ public class CaveRoom {
 		this.contents = contents;
 	}
 
+	public Door getDoor(int direction) {
+		// TODO Auto-generated method stub
+		return doors[direction];
+	}
+
 }
