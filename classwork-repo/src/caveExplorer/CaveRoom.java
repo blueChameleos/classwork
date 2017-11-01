@@ -142,6 +142,9 @@ public class CaveRoom {
 		}
 		//3. Replace some default rooms with custom rooms (SAVE FOR LATER)
 		NPC testNPC = new NPC();
+		testNPC.setPosition(1,2);
+		CaveExplorer.npcs = new NPC[1];
+		CaveExplorer.npcs[0] = testNPC;
 		
 		//4. Set starting room
 		CaveExplorer.currentRoom = c[0][1];

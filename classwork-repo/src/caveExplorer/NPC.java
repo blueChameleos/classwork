@@ -47,4 +47,33 @@ public class NPC {
 	public String getInactiveDescription() {
 		return inactiveDescription;
 	}
+
+	public void setPosition(int row, int col) {
+		//check to avoid ArrayOutOfBoundsException
+		if(row >= 0 && row < floor.length && col >= 0 && col < floor[row].length && floor[row][col] instanceof NPCRoom) {
+			if(currentRoom != null) {
+				currentRoom.leaveNPC();
+			}
+			
+			currentRow = row;
+			currentCol = col;
+			currentRoom = (NPCRoom)floor[row][col];
+			currentRoom.enterNPC(this);
+		}
+	}
+
+	public void autoMove() {
+		if(active) {
+			int[] move = calculateMove();
+			int newRow = currentRow + move[0];
+			int newCol = currentCol + move[1];
+			setPosition(newRow, newCol);
+		}
+	}
+
+	private int[] calculateMove() {
+		int[][] possibleMoves = {{-1,0},{0,1},{1,0},{0,-1}};
+		int index = 
+		return null;
+	}
 }
