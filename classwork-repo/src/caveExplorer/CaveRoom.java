@@ -140,6 +140,7 @@ public class CaveRoom {
 				c[row][col] = new NPCRoom("This cave has coordinates ("+row+","+col+")");
 			}
 		}
+		c[1][1] = new Fountain("In front of you you see a fountain of vitality.");
 		//3. Replace some default rooms with custom rooms (SAVE FOR LATER)
 		NPC testNPC = new NPC();
 		testNPC.setPosition(1,2);

@@ -3,11 +3,24 @@ package caveExplorer;
 public class Inventory {
 
 	private String map;
+	private int hp;
 	
+	public int getHP() {
+		return hp;
+	}
+
+	public void setHP(int hp) {
+		this.hp = hp;
+	}
+
 	public Inventory() {
-		updateMap();	
+		updateMap();
 	}
 	
+	public void updateHP() {
+		System.out.println("HP: " + this.hp);
+	}
+
 	public void updateMap() {
 		map = " ";
 		//make hor. line across top:
@@ -45,6 +58,8 @@ public class Inventory {
 				map += text + "\n";
 			}
 		}
+		
+		hp = 1;
 	}
 	
 	public String getDescription() {

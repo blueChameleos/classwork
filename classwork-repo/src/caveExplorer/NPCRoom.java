@@ -6,7 +6,6 @@ public class NPCRoom extends CaveRoom {
    
     public NPCRoom(String description) {
         super(description);
-       
     }
  
     public boolean canEnter() {
@@ -33,7 +32,6 @@ public class NPCRoom extends CaveRoom {
     private void printValidMoves() {
         System.out.println("You can only enter 'w', 'a', 's', or 'd' to move "
                 + "or you can press 'e' to interact.");
-       
     }
  
     /**
