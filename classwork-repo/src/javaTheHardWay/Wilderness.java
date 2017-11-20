@@ -42,7 +42,7 @@ public class Wilderness extends Habitat{
 					a.act();
 				}
 			}
-			growPlant();
+			growPlants();
 		}
 	}
 
