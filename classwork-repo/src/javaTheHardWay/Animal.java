@@ -23,6 +23,10 @@ public class Animal {
 		description = getName();
 		age = 0;
 	}
+	
+	public String getDescription() {
+		return this.description;
+	}
 
 	public void chooseTraits() {
 		trait1 = new Trait();
