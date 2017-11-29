@@ -42,7 +42,7 @@ public class Searching {
 				+ "\n    Press 'enter' to begin.");
 		in.nextLine();
 
-		int index = search(numbers, target);
+		int index = binarySearch(numbers, 0, numbers.length, target);
 
 		if(index!=-1){
 			System.out.println("The number "+target+" was found at index "+index+". Did the computer win?");
@@ -50,6 +50,35 @@ public class Searching {
 			System.out.println("The number "+target+" was not found in the file.");
 		}
 		
+	}
+	
+	public static int binarySearch(int[] searchThis, int startIndex, int endIndex, int target) {
+		int middle = (int)((startIndex+endIndex)/2);
+		if(searchThis[middle] == target) {
+			return middle;
+		}
+		else {
+			if(searchThis.length <= 2) {
+				for(int i = 0; i < searchThis.length; i++) {
+					if(searchThis[i] == target) {
+						return i;
+					}
+				}
+				return -1;
+			}
+			else if (startIndex > endIndex){
+				if(searchThis[middle] < target) {
+					return binarySearch(searchThis, startIndex, middle, target);
+				}
+				else if(searchThis[middle] > target) {
+					return binarySearch(searchThis, middle + 1, endIndex, target);
+				}
+				else {
+					return -1;
+				}
+			}
+			return -1;
+		}
 	}
 
 
